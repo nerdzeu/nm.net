@@ -45,27 +45,31 @@ namespace Nerdz.Messages.Impl {
 
 
         public List<IMessage> Messages(uint from = 0, short howMany = -1) {
+            try {
+                uint fetchUntil = (howMany >= 0) ? from + (uint)howMany : uint.MaxValue;
 
-            uint fetchUntil = (howMany >= 0) ? from + (uint) howMany : uint.MaxValue;
+                //Anything the client wants has already been fetched.
+                if (!this.conversation.hasMore().booleanValue() || fetchUntil < this.fetched.Count) {
+                    int ftchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
+                    return this.fetched.GetRange((int)from, ftchLen);
+                }
 
-            //Anything the client wants has already been fetched.
-            if (!this.conversation.hasMore().booleanValue() || fetchUntil < this.fetched.Count) {
-                int ftchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
-                return this.fetched.GetRange((int) from, ftchLen);
+                while (this.conversation.getFetchStart() < fetchUntil && this.conversation.hasMore().booleanValue()) {
+                    this.conversation.fetch();
+                }
+
+                var jFetcherIter = this.conversation.iterator();
+
+                while (jFetcherIter.hasNext()) {
+                    this.fetched.Add(new FastReverseMessage(this, jFetcherIter.next() as eu.nerdz.api.messages.Message));
+                }
+
+                int fetchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
+                return this.fetched.GetRange((int)from, fetchLen);
+            } catch (java.lang.Throwable t) {
+                Factory.ExceptionWrapper(t);
+                return null; //unreachable
             }
-
-            while (this.conversation.getFetchStart() < fetchUntil && this.conversation.hasMore().booleanValue()) {
-                this.conversation.fetch();
-            }
-
-            var jFetcherIter = this.conversation.iterator();
-
-            while (jFetcherIter.hasNext()) {
-                this.fetched.Add(new FastReverseMessage(this, jFetcherIter.next() as eu.nerdz.api.messages.Message));
-            }
-
-            int fetchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
-            return this.fetched.GetRange((int) from, fetchLen);
         }
     }
 }

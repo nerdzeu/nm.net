@@ -3,31 +3,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nerdz;
 using Nerdz.Messages;
 
-namespace Tests {
+namespace Tests.ApiWrapper {
     [TestClass]
-    public class UnitTest1 {
+    public class ApiWrapper {
         static private IMessenger messenger;
         static private System.Collections.Generic.List<IConversation> conversations;
 
         [TestMethod]
         public void TestNewMessenger() {
-            UnitTest1.messenger = Nerdz.Factory.newMessenger("user", "pass");
+            ApiWrapper.messenger = Nerdz.Factory.newMessenger("user", "pass");
         }
 
         [TestMethod]
         public void TestFetchConversations() {
-            UnitTest1.conversations = UnitTest1.messenger.Conversations();
+            ApiWrapper.conversations = ApiWrapper.messenger.Conversations();
         }
 
         [TestMethod]
         public void TestDumpConversations() {
-            foreach (var conv in UnitTest1.conversations) {
+            foreach (var conv in ApiWrapper.conversations) {
                 System.Console.WriteLine(conv);
                 foreach (var msg in conv.Messages()) {
                     System.Console.WriteLine(msg);
                 }
                 System.Console.WriteLine();
             }
+        }
+
+        [TestMethod]
+        public void TestDumpAgain() {
+            this.TestDumpConversations();
         }
 
         [TestMethod]
