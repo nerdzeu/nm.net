@@ -95,19 +95,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application.cs" />
+    <Compile Include="IApplication.cs" />
     <Compile Include="BadStatusException.cs" />
     <Compile Include="ContentException.cs" />
-    <Compile Include="Conversation.cs" />
+    <Compile Include="IConversation.cs" />
     <Compile Include="FastReverseConversation.cs" />
     <Compile Include="FastReverseMessage.cs" />
     <Compile Include="FastReverseMessenger.cs" />
     <Compile Include="HttpException.cs" />
     <Compile Include="JavaException.cs" />
     <Compile Include="LoginException.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Messenger.cs" />
-    <Compile Include="Nerdz.cs" />
+    <Compile Include="IMessage.cs" />
+    <Compile Include="IMessenger.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserNotFoundException.cs" />
   </ItemGroup>

@@ -11,7 +11,7 @@ namespace Tests {
 
         [TestMethod]
         public void TestNewMessenger() {
-            UnitTest1.messenger = Nerdz.Nerdz.newMessenger("user", "pass");
+            UnitTest1.messenger = Nerdz.Factory.newMessenger("user", "pass");
         }
 
         [TestMethod]
@@ -23,7 +23,7 @@ namespace Tests {
         public void TestDumpConversations() {
             foreach (var conv in UnitTest1.conversations) {
                 System.Console.WriteLine(conv);
-                foreach (var msg in conv) {
+                foreach (var msg in conv.Messages()) {
                     System.Console.WriteLine(msg);
                 }
                 System.Console.WriteLine();
@@ -33,7 +33,7 @@ namespace Tests {
         [TestMethod]
         [ExpectedException(typeof(LoginException))]
         public void TestFailedLogin() {
-            Nerdz.Nerdz.newMessenger("idonotexist", "invalid");
+            Nerdz.Factory.newMessenger("idonotexist", "invalid");
         }
     }
 }

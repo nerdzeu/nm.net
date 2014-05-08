@@ -16,7 +16,7 @@ namespace Nerdz.Messages.Impl {
             try {
                 this.real = new JavaFRMess(username, password);
             } catch (java.lang.Throwable t) {
-                Nerdz.ExceptionWrapper(t);
+                Factory.ExceptionWrapper(t);
             }
         }
 
@@ -32,12 +32,12 @@ namespace Nerdz.Messages.Impl {
                 var ret = new List<IConversation>(jConvs.size());
 
                 while (jConvsIter.hasNext()) {
-                    ret.Add(new FastReverseConversation(this.handl, jConvsIter.next() as eu.nerdz.api.messages.Conversation));
+                    ret.Add(new FastReverseConversation(jConvsIter.next() as eu.nerdz.api.messages.MessageFetcher));
                 }
 
                 return ret;
             } catch (java.lang.Throwable t) {
-                Nerdz.ExceptionWrapper(t);
+                Factory.ExceptionWrapper(t);
                 return null; //unreachable
             }
         }
@@ -45,9 +45,9 @@ namespace Nerdz.Messages.Impl {
         public IMessage Send(string to, string message) {
             try {
                 var jMess = this.real.sendMessage(to, message);
-                return new FastReverseMessage(new FastReverseConversation(this.handl, jMess.thisConversation()), jMess);
+                return new FastReverseMessage(new FastReverseConversation(jMess.thisConversation() as eu.nerdz.api.messages.MessageFetcher), jMess);
             } catch (java.lang.Throwable t) {
-                Nerdz.ExceptionWrapper(t);
+                Factory.ExceptionWrapper(t);
                 return null; //unreachable
             }
         }
@@ -56,7 +56,7 @@ namespace Nerdz.Messages.Impl {
             try {
                 return (uint)this.real.newMessages();
             } catch (java.lang.Throwable t) {
-                Nerdz.ExceptionWrapper(t);
+                Factory.ExceptionWrapper(t);
                 return 0U; //unreachable
             }
         }
@@ -76,7 +76,7 @@ namespace Nerdz.Messages.Impl {
                 } catch (eu.nerdz.api.LoginException) {
                     return false;
                 } catch (java.lang.Throwable t) {
-                    Nerdz.ExceptionWrapper(t);
+                    Factory.ExceptionWrapper(t);
                     return false;
                 }
             }

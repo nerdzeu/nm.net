@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 
 namespace Nerdz {
-    public class Nerdz {
+    public class Factory {
         public static IMessenger newMessenger(string uName, string pass) {
             return new FastReverseMessenger(uName, pass);
         }

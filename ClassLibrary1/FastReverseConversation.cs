@@ -7,12 +7,12 @@ using System.Collections;
 
 namespace Nerdz.Messages.Impl {
     class FastReverseConversation : IConversation {
-        private eu.nerdz.api.messages.Conversation conversation;
-        private eu.nerdz.api.messages.ConversationHandler handl;
+        private eu.nerdz.api.messages.MessageFetcher conversation;
+        private List<IMessage> fetched;
 
-        public FastReverseConversation(eu.nerdz.api.messages.ConversationHandler handl, eu.nerdz.api.messages.Conversation conversation) {
+        public FastReverseConversation(eu.nerdz.api.messages.MessageFetcher conversation) {
             this.conversation = conversation;
-            this.handl = handl;
+            this.fetched = new List<IMessage>();
         }
 
         public uint OtherId {
@@ -39,26 +39,33 @@ namespace Nerdz.Messages.Impl {
             }
         }
 
-        public IEnumerator<IMessage> GetEnumerator() {
-            java.util.List jMsgs = null;
-            try {
-                jMsgs = this.handl.getMessages(this.conversation);
-            } catch (java.lang.Throwable t) {
-                Nerdz.ExceptionWrapper(t);
-            }
-            var jMsgsEnum = jMsgs.listIterator();
-
-                while (jMsgsEnum.hasNext()) {
-                    yield return new FastReverseMessage(this, jMsgsEnum.next() as eu.nerdz.api.messages.Message);
-                }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return this.GetEnumerator();
-        }
-
         public override string ToString() {
             return this.conversation.ToString();
+        }
+
+
+        public List<IMessage> Messages(uint from = 0, short howMany = -1) {
+
+            uint fetchUntil = (howMany >= 0) ? from + (uint) howMany : uint.MaxValue;
+
+            //Anything the client wants has already been fetched.
+            if (!this.conversation.hasMore().booleanValue() || fetchUntil < this.fetched.Count) {
+                int ftchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
+                return this.fetched.GetRange((int) from, ftchLen);
+            }
+
+            while (this.conversation.getFetchStart() < fetchUntil && this.conversation.hasMore().booleanValue()) {
+                this.conversation.fetch();
+            }
+
+            var jFetcherIter = this.conversation.iterator();
+
+            while (jFetcherIter.hasNext()) {
+                this.fetched.Add(new FastReverseMessage(this, jFetcherIter.next() as eu.nerdz.api.messages.Message));
+            }
+
+            int fetchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
+            return this.fetched.GetRange((int) from, fetchLen);
         }
     }
 }
