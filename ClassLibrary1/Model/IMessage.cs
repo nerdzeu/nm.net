@@ -4,8 +4,13 @@ using System.Linq;
 using System.Text;
 using Nerdz;
 
-namespace Nerdz.Messages {
-    public interface IMessage {
+namespace Nerdz.Messages
+{
+    public interface IMessage
+    {
+        /// <exception cref="IOException"></exception>
+        /// <exception cref="HttpException"></exception>
+        /// <exception cref="ContentException"></exception>
         IConversation Conversation { get; }
         bool Read { get; }
         bool Received { get; }

@@ -95,21 +95,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IApplication.cs" />
-    <Compile Include="BadStatusException.cs" />
-    <Compile Include="ContentException.cs" />
-    <Compile Include="IConversation.cs" />
-    <Compile Include="FastReverseConversation.cs" />
-    <Compile Include="FastReverseMessage.cs" />
-    <Compile Include="FastReverseMessenger.cs" />
-    <Compile Include="HttpException.cs" />
-    <Compile Include="JavaException.cs" />
-    <Compile Include="LoginException.cs" />
-    <Compile Include="IMessage.cs" />
-    <Compile Include="IMessenger.cs" />
-    <Compile Include="Factory.cs" />
+    <Compile Include="Controller\Credentials.cs" />
+    <Compile Include="Controller\CriticalException.cs" />
+    <Compile Include="Controller\IMessengerController.cs" />
+    <Compile Include="Controller\MessengerController.cs" />
+    <Compile Include="Controller\IMessengerView.cs" />
+    <Compile Include="Model\IApplication.cs" />
+    <Compile Include="Model\BadStatusException.cs" />
+    <Compile Include="Model\ContentException.cs" />
+    <Compile Include="Model\IConversation.cs" />
+    <Compile Include="Model\FastReverseConversation.cs" />
+    <Compile Include="Model\FastReverseMessage.cs" />
+    <Compile Include="Model\FastReverseMessenger.cs" />
+    <Compile Include="Model\HttpException.cs" />
+    <Compile Include="Model\JavaException.cs" />
+    <Compile Include="Model\LoginException.cs" />
+    <Compile Include="Model\IMessage.cs" />
+    <Compile Include="Model\IMessenger.cs" />
+    <Compile Include="Model\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserNotFoundException.cs" />
+    <Compile Include="Model\UserNotFoundException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

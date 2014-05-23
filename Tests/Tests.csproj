@@ -50,7 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ApiWrapperTests.cs" />
+    <Compile Include="Controller\MessengerControllerTestMethods.cs" />
+    <Compile Include="Model\ApiWrapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +61,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ApiWrapperTests.orderedtest">
+    <Folder Include="View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controller\OrderedTest1.orderedtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
