@@ -11,7 +11,7 @@ namespace Tests.ApiWrapper {
 
         [TestMethod]
         public void TestNewMessenger() {
-            ApiWrapper.messenger = Nerdz.Factory.newMessenger("prova", "provaprova");
+            ApiWrapper.messenger = Nerdz.Factory.newMessenger("admin", "adminadmin");
         }
 
         [TestMethod]

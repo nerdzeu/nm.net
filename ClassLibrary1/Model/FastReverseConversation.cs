@@ -9,30 +9,30 @@ namespace Nerdz.Messages.Impl
 {
     class FastReverseConversation : IConversation
     {
-        private eu.nerdz.api.messages.MessageFetcher conversation;
-        private List<IMessage> fetched;
+        private eu.nerdz.api.messages.MessageFetcher _conversation;
+        private List<IMessage> _fetched;
 
         public FastReverseConversation(eu.nerdz.api.messages.MessageFetcher conversation)
         {
-            this.conversation = conversation;
-            this.fetched = new List<IMessage>();
+            this._conversation = conversation;
+            this._fetched = new List<IMessage>();
         }
 
         public uint OtherId
         {
-            get { return (uint)this.conversation.getOtherID(); }
+            get { return (uint)this._conversation.getOtherID(); }
         }
 
         public string OtherName
         {
-            get { return this.conversation.getOtherName(); }
+            get { return this._conversation.getOtherName(); }
         }
 
         public DateTime LastDate
         {
             get
             {
-                var jDate = this.conversation.getLastDate();
+                var jDate = this._conversation.getLastDate();
                 return new DateTime((jDate.getTime() + 62135596800000L) * 10000, DateTimeKind.Utc).ToLocalTime();
             }
         }
@@ -41,17 +41,17 @@ namespace Nerdz.Messages.Impl
         {
             get
             {
-                return this.conversation.hasNewMessages();
+                return this._conversation.hasNewMessages();
             }
             set
             {
-                this.conversation.setHasNewMessages(value);
+                this._conversation.setHasNewMessages(value);
             }
         }
 
         public override string ToString()
         {
-            return this.conversation.ToString();
+            return this._conversation.ToString();
         }
 
 
@@ -62,26 +62,26 @@ namespace Nerdz.Messages.Impl
                 uint fetchUntil = (howMany >= 0) ? from + (uint)howMany : uint.MaxValue;
 
                 //Anything the client wants has already been fetched.
-                if (!this.conversation.hasMore().booleanValue() || fetchUntil < this.fetched.Count)
+                if (!this._conversation.hasMore().booleanValue() || fetchUntil < this._fetched.Count)
                 {
-                    int ftchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
-                    return this.fetched.GetRange((int)from, ftchLen);
+                    int ftchLen = (howMany >= 0) ? Math.Min(howMany, this._fetched.Count) : this._fetched.Count;
+                    return this._fetched.GetRange((int)from, ftchLen);
                 }
 
-                while (this.conversation.getFetchStart() < fetchUntil && this.conversation.hasMore().booleanValue())
+                while (this._conversation.getFetchStart() < fetchUntil && this._conversation.hasMore().booleanValue())
                 {
-                    this.conversation.fetch();
+                    this._conversation.fetch();
                 }
 
-                var jFetcherIter = this.conversation.iterator();
+                var jFetcherIter = this._conversation.iterator();
 
                 while (jFetcherIter.hasNext())
                 {
-                    this.fetched.Add(new FastReverseMessage(this, jFetcherIter.next() as eu.nerdz.api.messages.Message));
+                    this._fetched.Add(new FastReverseMessage(this, jFetcherIter.next() as eu.nerdz.api.messages.Message));
                 }
 
-                int fetchLen = (howMany >= 0) ? Math.Min(howMany, this.fetched.Count) : this.fetched.Count;
-                return this.fetched.GetRange((int)from, fetchLen);
+                int fetchLen = (howMany >= 0) ? Math.Min(howMany, this._fetched.Count) : this._fetched.Count;
+                return this._fetched.GetRange((int)from, fetchLen);
             }
             catch (java.lang.Throwable t)
             {

@@ -11,14 +11,14 @@ namespace Nerdz.Messages.Impl
 {
     class FastReverseMessenger : IMessenger
     {
-        private JavaFRMess real;
-        private JavaConvHandl handl;
+        private JavaFRMess _real;
+        private JavaConvHandl _handl;
 
         public FastReverseMessenger(string username, string password)
         {
             try
             {
-                this.real = new JavaFRMess(username, password);
+                this._real = new JavaFRMess(username, password);
             }
             catch (java.lang.Throwable t)
             {
@@ -30,12 +30,12 @@ namespace Nerdz.Messages.Impl
         {
             try
             {
-                if (this.handl == null)
+                if (this._handl == null)
                 {
-                    this.handl = this.real.getConversationHandler();
+                    this._handl = this._real.getConversationHandler();
                 }
 
-                var jConvs = this.handl.getConversationsAsFetchers();
+                var jConvs = this._handl.getConversationsAsFetchers();
 
                 var jConvsIter = jConvs.listIterator();
                 var ret = new List<IConversation>(jConvs.size());
@@ -58,7 +58,7 @@ namespace Nerdz.Messages.Impl
         {
             try
             {
-                var jMess = this.real.sendMessage(to, message);
+                var jMess = this._real.sendMessage(to, message);
                 return new FastReverseMessage(new FastReverseConversation(jMess.thisConversation() as eu.nerdz.api.messages.MessageFetcher), jMess);
             }
             catch (java.lang.Throwable t)
@@ -72,7 +72,7 @@ namespace Nerdz.Messages.Impl
         {
             try
             {
-                return (uint)this.real.newMessages();
+                return (uint)this._real.newMessages();
             }
             catch (java.lang.Throwable t)
             {
@@ -83,12 +83,12 @@ namespace Nerdz.Messages.Impl
 
         public string Username
         {
-            get { return this.real.getUsername(); }
+            get { return this._real.getUsername(); }
         }
 
         public uint UserId
         {
-            get { return (uint)this.real.getUserID(); }
+            get { return (uint)this._real.getUserID(); }
         }
 
         public bool Valid
@@ -97,7 +97,7 @@ namespace Nerdz.Messages.Impl
             {
                 try
                 {
-                    return this.real.checkValidity();
+                    return this._real.checkValidity();
                 }
                 catch (eu.nerdz.api.LoginException)
                 {
@@ -113,7 +113,7 @@ namespace Nerdz.Messages.Impl
 
         public uint IdFromName(string username)
         {
-            return (uint)this.real.getUserIdForName(username);
+            return (uint)this._real.getUserIdForName(username);
         }
     }
 }

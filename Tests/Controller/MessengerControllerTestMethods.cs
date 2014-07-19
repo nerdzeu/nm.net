@@ -46,7 +46,7 @@ namespace Tests.Controller
             Console.WriteLine("Username: ");
             string username = "new user input from textbox";
             Console.WriteLine("Password: ");
-            string password = "passoword input from textbox";
+            string password = "password input from textbox";
             credentials = new Credentials(username, password);
         }
 
@@ -92,7 +92,7 @@ namespace Tests.Controller
                 Console.WriteLine("Wrong username and password (OK!)");
             }
 
-            c = new Credentials("user", "pass");
+            c = new Credentials("admin", "adminadmin");
 
             controller = new MessengerController(view, c);
 
@@ -120,7 +120,7 @@ namespace Tests.Controller
         [TestMethod]
         public void TestSendOK()
         {
-            controller.Send("nessuno", "great app :>");
+            controller.Send("Gaben", "great app :>");
             // user nessuno exists, no exception expected
         }
 

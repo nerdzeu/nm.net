@@ -7,38 +7,38 @@ namespace Nerdz.Messages.Impl
 {
     class FastReverseMessage : IMessage
     {
-        private eu.nerdz.api.messages.Message message;
-        private IConversation father;
+        private eu.nerdz.api.messages.Message _message;
+        private IConversation _father;
 
         public FastReverseMessage(IConversation father, eu.nerdz.api.messages.Message message)
         {
-            this.father = father;
-            this.message = message;
+            this._father = father;
+            this._message = message;
         }
 
         public IConversation Conversation
         {
-            get { return this.father; }
+            get { return this._father; }
         }
 
         public bool Read
         {
-            get { return this.message.read(); }
+            get { return this._message.read(); }
         }
 
         public bool Received
         {
-            get { return this.message.received(); }
+            get { return this._message.received(); }
         }
 
         public string Text
         {
-            get { return this.message.getContent() as string; }
+            get { return this._message.getContent() as string; }
         }
 
         public override string ToString()
         {
-            return this.message.ToString();
+            return this._message.ToString();
         }
     }
 }
