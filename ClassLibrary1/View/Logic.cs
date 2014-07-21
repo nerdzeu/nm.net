@@ -1,4 +1,4 @@
-﻿using Nerdz.Controller;
+﻿using Nerdz.Messenger.Controller;
 using Nerdz.Messages;
 using System;
 using System.Collections.Generic;
@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.View {
-    public class WFUI : IMessengerView {
+namespace Nerdz.Messenger.View {
+     public partial class NerdzMessenger : IMessengerView {
         private Credentials credentials;
 
         private IMessengerController controller;
@@ -20,7 +20,7 @@ namespace ClassLibrary1.View {
             }
         }
 
-        public void UpdateConversations(System.Collections.Generic.List<Nerdz.Messages.IConversation> conversations) {
+        public void UpdateConversations(List<Nerdz.Messages.IConversation> conversations) {
             Console.WriteLine("Conversations: ");
             foreach (IConversation c in conversations) {
                 Console.WriteLine(c);

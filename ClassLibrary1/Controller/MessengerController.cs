@@ -8,7 +8,7 @@ using System.IO;
 using System.Net;
 
 
-namespace Nerdz.Controller
+namespace Nerdz.Messenger.Controller
 {
     public class MessengerController : IMessengerController
     {

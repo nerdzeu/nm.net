@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{70C3E933-DD6C-4277-AC21-9E255B11051B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
+    <RootNamespace>Nerdz</RootNamespace>
     <AssemblyName>ClassLibrary1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -28,6 +28,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Nerdz.Messenger.View.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="commons-lang3-3.1, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -88,6 +91,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -115,9 +120,25 @@
     <Compile Include="Model\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\UserNotFoundException.cs" />
-    <Compile Include="View\WFUI.cs" />
+    <Compile Include="View\NerdzMessenger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\NerdzMessenger.Designer.cs">
+      <DependentUpon>NerdzMessenger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Program.cs" />
+    <Compile Include="View\WatermarkTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Logic.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="View\NerdzMessenger.resx">
+      <DependentUpon>NerdzMessenger.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

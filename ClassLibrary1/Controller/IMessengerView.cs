@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nerdz.Messages;
 
-namespace Nerdz.Controller
+namespace Nerdz.Messenger.Controller
 {
     public interface IMessengerView
     {

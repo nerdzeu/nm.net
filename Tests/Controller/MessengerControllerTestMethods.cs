@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nerdz.Controller;
+using Nerdz.Messenger.Controller;
 using Nerdz.Messages;
 using Nerdz;
 
