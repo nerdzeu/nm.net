@@ -5,18 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Nerdz.Messenger.View {
      public partial class NerdzMessenger : IMessengerView {
-        private Credentials credentials;
+        private Credentials _credentials;
+        private bool _invalid;
 
-        private IMessengerController controller;
+        private IMessengerController _controller;
         public IMessengerController Controller {
             set {
-                controller = value;
+                _controller = value;
             }
             get {
-                return controller;
+                return _controller;
             }
         }
 
@@ -39,7 +41,7 @@ namespace Nerdz.Messenger.View {
             string username = "new user input from textbox";
             Console.WriteLine("Password: ");
             string password = "password input from textbox";
-            credentials = new Credentials(username, password);
+            _credentials = new Credentials(username, password);
         }
 
         public void ClearConversations() {
@@ -55,7 +57,13 @@ namespace Nerdz.Messenger.View {
         }
 
         public void DisplayCriticalError(string error) {
-            Console.Error.WriteLine("CRITICAL: " + error);
+            MessageBox.Show(
+                    error,
+                    "Critical error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            _invalid = true;
         }
     }
 }

@@ -11,7 +11,8 @@ using System.Windows.Forms;
 
 namespace Nerdz.Messenger.View {
     public partial class NerdzMessenger : Form {
-        private IMessengerController _controller;
+
+        private WebBrowser _browser;
 
         public NerdzMessenger() {
             InitializeComponent();
@@ -24,12 +25,24 @@ namespace Nerdz.Messenger.View {
                 );
         }
 
-        private void loginButton_Click(object sender, EventArgs e) {
-            var credentials = new Credentials(username.Text, password.Text);
+        private void DoLogin() {
+            _credentials = new Credentials(username.Text, password.Text);
+            _invalid = false;
+            string buttText = loginButton.Text;
+
+            loginButton.Enabled = username.Enabled = password.Enabled = false;
+            loginButton.Text = "Wait...";
 
             try 
             {
-                _controller = new MessengerController(this, credentials);
+                _controller = new MessengerController(this, _credentials);
+
+                if (!_invalid) {
+                    this.loginPanel.Visible = false;
+                    _browser = new WebBrowser();
+                    _browser.Dock = DockStyle.Fill;
+                    this.Controls.Add(_browser);
+                }
             } 
             catch (LoginException) 
             {
@@ -40,8 +53,18 @@ namespace Nerdz.Messenger.View {
                     MessageBoxIcon.Error
                 );
 
+                
+            } finally {
                 username.Text = password.Text = String.Empty;
+                username.Focus();
+                username.Enabled = password.Enabled = true;
+                loginButton.Text = buttText;
             }
+
+        }
+
+        private void loginButton_Click(object sender, EventArgs e) {
+            this.DoLogin();
         }
 
         private void checkButton() {
@@ -59,6 +82,19 @@ namespace Nerdz.Messenger.View {
         private void registerLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) 
         {
             System.Diagnostics.Process.Start(Factory.SERVER_URL);
+        }
+
+        private void username_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char) 13 && loginButton.Enabled)
+			{
+                this.DoLogin();  
+			}
+        }
+
+        private void password_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char) 13 && loginButton.Enabled) {
+                this.DoLogin();
+            }
         }
     }
 }
