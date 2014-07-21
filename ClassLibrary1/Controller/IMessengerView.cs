@@ -24,5 +24,8 @@ namespace Nerdz.Messenger.Controller
         // Display errors
         void DisplayError(String error);
         void DisplayCriticalError(String error);
+
+        // Utility methods
+        int ConversationDisplayed();
     }
 }

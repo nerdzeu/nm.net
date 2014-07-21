@@ -76,7 +76,16 @@ namespace Nerdz.Messenger.Controller
         /// <exception cref="UserNotFoundException"></exception>
         public void Send(String to, String message)
         {
-            _messenger.Send(to, message);
+            int current = _view.ConversationDisplayed();
+            bool update = _conversations.Count > current && _conversations[current].OtherName.ToUpper() == to.ToUpper();
+
+            IMessage msg = _messenger.Send(to, message);
+            this.Conversations();
+
+            if (update)
+            {
+                this.Conversation(0);
+            }
         }
 
         public void Logout()

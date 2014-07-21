@@ -16,6 +16,7 @@ namespace Nerdz.Messenger.View
         private bool _invalid;
 
         private IMessengerController _controller;
+        private int _lastIndex;
         public IMessengerController Controller
         {
             set
@@ -28,11 +29,19 @@ namespace Nerdz.Messenger.View
             }
         }
 
+        //Callback from jsUI
         public void Conversation(int index, uint from = 0, short howMany = 10)
         {
             _controller.Conversation(index, from, howMany);
+            _lastIndex = index;
         }
 
+        public void Send(string to, string message)
+        {
+            _controller.Send(to, message);
+        }
+
+        // Interface implementation
 
         public void UpdateConversations(List<Nerdz.Messages.IConversation> conversations)
         {
@@ -56,17 +65,17 @@ namespace Nerdz.Messenger.View
 
         public void ClearConversations()
         {
-            Console.WriteLine("\n\n\nConversations list cleaned\n\n");
+            _browser.Document.InvokeScript("clearConversations");
         }
 
         public void ClearConversation()
         {
-            Console.WriteLine("\n\nConversation cleaned\n\n");
+            _browser.Document.InvokeScript("clearConversation");
         }
 
         public void DisplayError(string error)
         {
-            Console.Error.WriteLine("[!] " + error);
+            _browser.Document.InvokeScript("error", new Object[] { error });
         }
 
         public void DisplayCriticalError(string error)
@@ -78,6 +87,11 @@ namespace Nerdz.Messenger.View
                     MessageBoxIcon.Error
                 );
             _invalid = true;
+        }
+
+        public int ConversationDisplayed()
+        {
+            return _lastIndex;
         }
     }
 }
