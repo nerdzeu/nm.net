@@ -21,6 +21,15 @@ namespace Nerdz.Messages.Impl
             get { return this._father; }
         }
 
+        public DateTime Date
+        {
+            get
+            {
+                var jDate = this._message.getDate();
+                return new DateTime((jDate.getTime() + 62135596800000L) * 10000, DateTimeKind.Utc).ToLocalTime();
+            }
+        }
+
         public bool Read
         {
             get { return this._message.read(); }

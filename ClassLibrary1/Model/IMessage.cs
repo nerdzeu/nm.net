@@ -12,6 +12,7 @@ namespace Nerdz.Messages
         /// <exception cref="HttpException"></exception>
         /// <exception cref="ContentException"></exception>
         IConversation Conversation { get; }
+        DateTime Date { get; }
         bool Read { get; }
         bool Received { get; }
         string Text { get; }
