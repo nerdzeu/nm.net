@@ -39,8 +39,8 @@ namespace Nerdz.Messenger.View
             _invalid = false;
             string buttText = loginButton.Text;
 
-            loginButton.Enabled = username.Enabled = password.Enabled = false;
             loginButton.Text = "Wait...";
+            loginButton.Enabled = username.Enabled = password.Enabled = false;
 
             try
             {
