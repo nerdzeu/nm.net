@@ -5,11 +5,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Nerdz.Messenger.View {
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+    [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     public partial class NerdzMessenger : Form {
 
         private WebBrowser _browser;
@@ -42,6 +45,11 @@ namespace Nerdz.Messenger.View {
                     _browser = new WebBrowser();
                     _browser.Dock = DockStyle.Fill;
                     this.Controls.Add(_browser);
+                    _browser.AllowWebBrowserDrop = false;
+                    _browser.IsWebBrowserContextMenuEnabled = false;
+                    _browser.WebBrowserShortcutsEnabled = false;
+                    _browser.ObjectForScripting = this;
+                    _browser.DocumentText = "";
                 }
             } 
             catch (LoginException) 
