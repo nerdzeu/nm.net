@@ -69,6 +69,11 @@ namespace Tests.Controller
         {
             Console.Error.WriteLine("CRITICAL: " + error);
         }
+
+        public int ConversationDisplayed()
+        {
+            return 0;
+        }
     }
 
 

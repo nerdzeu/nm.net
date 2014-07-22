@@ -10,6 +10,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using mshtml;
 
 namespace Nerdz.Messenger.View
 {
@@ -56,7 +57,6 @@ namespace Nerdz.Messenger.View
                     _browser.IsWebBrowserContextMenuEnabled = false;
                     _browser.WebBrowserShortcutsEnabled = false;
                     _browser.ObjectForScripting = this;
-                    string curDir = Directory.GetCurrentDirectory();
                     _browser.DocumentText = Properties.Resources.app;
                     _browser.DocumentCompleted += WebBrowserCompleted;
                 }
@@ -84,6 +84,16 @@ namespace Nerdz.Messenger.View
 
         private void WebBrowserCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            HtmlElement head = _browser.Document.GetElementsByTagName("head")[0];
+            HtmlElement scriptEl = _browser.Document.CreateElement("script");
+            IHTMLScriptElement element = (IHTMLScriptElement)scriptEl.DomElement;
+            element.text = Properties.Resources.js;
+            head.AppendChild(scriptEl);
+
+            IHTMLDocument2 doc = (_browser.Document.DomDocument) as IHTMLDocument2;
+            IHTMLStyleSheet ss = doc.createStyleSheet("", 0);
+            ss.cssText = Properties.Resources.css;
+
             _browser.Document.InvokeScript("setUsername", new Object[] { _credentials.Username });
             _controller.Conversations();
         }

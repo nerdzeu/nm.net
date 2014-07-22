@@ -63,14 +63,89 @@ namespace Nerdz.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!doctype html&gt;
         ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;app&lt;/title&gt;
+        ///&lt;/head&gt;
         ///&lt;body&gt;
-        ///	&lt;h1&gt;NIGGER&lt;/H1&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
+        ///    &lt;div id=&quot;body&quot;&gt;
+        ///        &lt;div id=&quot;left&quot;&gt;
+        ///            &lt;ul id=&quot;conversations&quot;&gt;&lt;/ul&gt;
+        ///        &lt;/div&gt;
+        ///        &lt;div id=&quot;center&quot;&gt;
+        ///            &lt;ul id=&quot;conversation&quot;&gt;&lt;/ul&gt;
+        ///            &lt;div id=&quot;form&quot;&gt;
+        ///                &lt;textarea id=&quot;textarea&quot;&gt;&lt;/textarea&gt;
+        ///                &lt;button id=&quot;send&quot; name=&quot;send&quot; onclick=&quot;external.Send(window.otherUsername, document.getElementById(&apos;textarea&apos;).value)&quot;&gt;Send&lt;/button&gt;
+        ///            &lt;/div&gt;
+        ///        &lt;/div&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string app {
             get {
                 return ResourceManager.GetString("app", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #left {
+        ///    width: 25%;
+        ///    float: left;
+        ///    height: 100%;
+        ///}
+        ///
+        ///#center {
+        ///    border-left: 2px solid black;
+        ///    width: 74%;
+        ///    float: left;
+        ///    height: 100%;
+        ///}
+        ///
+        ///#body {
+        ///    overflow: hidden;
+        ///    clear: both;
+        ///    height: 100%;
+        ///}
+        ///
+        ///#form {
+        ///    display: none;
+        ///}
+        ///
+        ///.messageLeft {
+        ///    float: left;
+        ///}
+        ///
+        ///.messageRight {
+        ///    float: right;
+        ///}
+        ///
+        ///body {
+        ///    height: 100%;
+        ///}.
+        /// </summary>
+        internal static string css {
+            get {
+                return ResourceManager.GetString("css", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to var getConversation = function (index, options) {
+        ///    options = options ? options : { &quot;from&quot;: 0, &quot;howMany&quot;: 10 };
+        ///    external.Conversation(index, options.from, options.howMany);
+        ///};
+        ///
+        ///var appendConversation = function (ol, username, date, index) {
+        ///    var li = document.createElement(&quot;li&quot;);
+        ///    var text = document.createTextNode(username);
+        ///    li.onclick = function () {
+        ///        window.otherUsername = username;
+        ///        getConversation(index);
+        ///    };
+        ///    li.appendChild(text);
+        ///    ol.appendChild(li) [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string js {
+            get {
+                return ResourceManager.GetString("js", resourceCulture);
             }
         }
     }

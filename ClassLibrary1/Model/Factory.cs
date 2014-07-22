@@ -8,7 +8,6 @@ using System.Text;
 
 namespace Nerdz
 {
-
     public class Factory
     {
         public static readonly string SERVER_URL = eu.nerdz.api.impl.reverse.AbstractReverseApplication.NERDZ_DOMAIN_NAME;

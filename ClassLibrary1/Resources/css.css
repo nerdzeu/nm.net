@@ -1,0 +1,34 @@
+﻿#left {
+    width: 25%;
+    float: left;
+    height: 100%;
+}
+
+#center {
+    border-left: 2px solid black;
+    width: 74%;
+    float: left;
+    height: 100%;
+}
+
+#body {
+    overflow: hidden;
+    clear: both;
+    height: 100%;
+}
+
+#form {
+    display: none;
+}
+
+.messageLeft {
+    float: left;
+}
+
+.messageRight {
+    float: right;
+}
+
+body {
+    height: 100%;
+}
