@@ -1,4 +1,6 @@
-﻿using Nerdz.Messenger.Controller;
+﻿#define debug
+
+using Nerdz.Messenger.Controller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,11 +34,14 @@ namespace Nerdz.Messenger.View
                 this.ClientSize.Width / 2 - loginPanel.Size.Width / 2,
                 this.ClientSize.Height / 2 - loginPanel.Size.Height / 2
                 );
+#if debug
+            DoLogin();
+#endif
         }
 
-        private void DoLogin()
+        private void DoLogin(string user, string pass)
         {
-            _credentials = new Credentials(username.Text, password.Text);
+            _credentials = new Credentials(user, pass);
             _invalid = false;
             string buttText = loginButton.Text;
 
@@ -80,6 +85,15 @@ namespace Nerdz.Messenger.View
                 loginButton.Text = buttText;
             }
 
+        }
+
+        private void DoLogin()
+        {
+#if debug
+            DoLogin("admin", "adminadmin");
+#else
+            DoLogin(username.Text, password.Text);
+#endif
         }
 
         private void WebBrowserCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

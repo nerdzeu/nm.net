@@ -13,20 +13,37 @@ var appendConversation = function (ol, username, date, index) {
         getConversation(index);
     };
     li.appendChild(text);
+    li.className = "clickable";
     ol.appendChild(li);
 };
 
 var appendMessage = function (ol, message, other, date, received) {
     var li = document.createElement("li");
-    var text = (received ? other : window.username) + " [ " + date + " ]" + "<br /> " + message;
+    var text = "<span class='username'>" + (received ? other : window.username) + "</span><span class='date'>" + date + " </span></div>" + "<br /> " + message;
     li.className = "message" + (received ? "Left" : "Right");
     li.innerHTML = text;
     ol.appendChild(li);
 };
 
 function normalizedDate(stringDate) {
-    return new Date(parseInt(stringDate.replace(/Date\(([0-9]+)\)/g, "$1").replace(/\//g, ""), 10));
+    var date = new Date(parseInt(stringDate.replace(/Date\(([0-9]+)\)/g, "$1").replace(/\//g, ""), 10));
+    return date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " - " + date.getHours() + ":" + date.getMinutes();
 };
+
+function showNewConversationForm() {
+    if (!window.toggled) {
+        window.toggled = document.getElementById("center").innerHTML;
+    } else {
+        document.getElementById("center").innerHTML = window.toggled;
+        window.toggled = false;
+        return;
+    }
+    document.getElementById("center").innerHTML = '<div id="newForm">'
+        + 'To: <input type="text" id="otherone" /><br />' +
+        +'<textarea id="newtextarea" onkeypress="document.getElementById(\'newsend\').disabled = false"></textarea>'
+        + '<button disabled id="newsend" onclick="document.getElementById(\'newsend\').disabled = true; external.Send(document.getElementById(\'otherone\').value, document.getElementById(\'newtextarea\').value); document.getElementById(\'newtextarea\').value = \'\';">Send</button>';
+
+}
 
 // Functions called from C#
 function setUsername(username) {
@@ -70,7 +87,9 @@ function updateMessages(conversation) {
     var messages = eval(conversation);
     for (m in messages) {
         var msg = messages[m];
-        appendMessage(document.getElementById("conversation"), msg.Text, msg.Conversation.OtherName, normalizedDate(msg.Date), msg.Received);
+        appendMessage(document.getElementById("conversation"), msg.Text.replace(/(?:\r\n|\r|\n)/g, '<br />'), msg.Conversation.OtherName, normalizedDate(msg.Date), msg.Received);
     }
+    document.getElementById("conversation").innerHTML += '<div id="lastMessage"></div>';
     document.getElementById("form").style.display = 'block';
+    location.href = "#lastMessage";
 };

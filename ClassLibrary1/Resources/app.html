@@ -6,14 +6,18 @@
 </head>
 <body>
     <div id="body">
+        <div id="header">
+            <div style="float: left" id="newConv" onclick="showNewConversationForm()">New Conversation</div>
+            <div style="float: right" id="gotoConv">Conversations</div>
+        </div>
         <div id="left">
             <ul id="conversations"></ul>
         </div>
         <div id="center">
             <ul id="conversation"></ul>
             <div id="form">
-                <textarea id="textarea"></textarea>
-                <button id="send" name="send" onclick="external.Send(window.otherUsername, document.getElementById('textarea').value)">Send</button>
+                <textarea id="textarea" onkeypress="document.getElementById('send').disabled = false"></textarea>
+                <button disabled id="send" name="send" onclick="document.getElementById('send').disabled = true; external.Send(window.otherUsername, document.getElementById('textarea').value); document.getElementById('textarea').value = '';">Send</button>
             </div>
         </div>
     </div>
