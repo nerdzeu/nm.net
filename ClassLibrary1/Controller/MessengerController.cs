@@ -20,7 +20,6 @@ namespace Nerdz.Messenger.Controller
         // Handle exception events. Send to the view the correct instructions and throw the right exception.
         private void WrapException(object sender, UnhandledExceptionEventArgs args)
         {
-            MessageBox.Show("asd"); 
             Exception e = (Exception)args.ExceptionObject;
             if (e is ContentException || e is JavaException || e is HttpException || e is IOException)
             {

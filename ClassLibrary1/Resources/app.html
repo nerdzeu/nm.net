@@ -2,13 +2,16 @@
 <html>
 <head>
     <title>app</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- js functions and css are dinamically added on page load, from c# code-->
 </head>
 <body>
+    <div id="newbody"></div>
     <div id="body">
         <div id="header">
-            <div style="float: left" id="newConv" onclick="showNewConversationForm()">New Conversation</div>
-            <div style="float: right" id="gotoConv">Conversations</div>
+            <div style="font-size:130%; float: left;font-weight:bold; margin-left: 2px; margin-top:2px; padding-left: 2px; padding-right: 2px;">NERDZ</div>
+            <div class="clickable" style="float: right; margin-right: 5px; padding-left: 2px; padding-right: 2px;" id="logout" onclick="try { external.Logout(); } catch (e) { error(e); }">Logout</div>
+            <div class="clickable" title="new conversation" style="float: right; margin-left: 5px; padding-left: 2px; padding-right: 2px;" id="newConv" onclick="showNewConversationForm()">&nbsp;&nbsp;+&nbsp;&nbsp;</div>
         </div>
         <div id="left">
             <ul id="conversations"></ul>
@@ -16,8 +19,10 @@
         <div id="center">
             <ul id="conversation"></ul>
             <div id="form">
-                <textarea id="textarea" onkeypress="document.getElementById('send').disabled = false"></textarea>
-                <button disabled id="send" name="send" onclick="document.getElementById('send').disabled = true; external.Send(window.otherUsername, document.getElementById('textarea').value); document.getElementById('textarea').value = '';">Send</button>
+                <div style="float:left; width:59%">
+                    <textarea id="textarea" onkeyup="if (this.value.replace(/\s*/g, '') != '') { document.getElementById('send').disabled = false; }"></textarea>
+                </div>
+                <button disabled id="send" class="send" onclick="document.getElementById('send').disabled = true; try { external.Send(window.otherUsername, document.getElementById('textarea').value); } catch (e) { error(e); return;}; document.getElementById('textarea').value = '';">Send</button>
             </div>
         </div>
     </div>

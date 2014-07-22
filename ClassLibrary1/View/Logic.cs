@@ -41,6 +41,11 @@ namespace Nerdz.Messenger.View
             _controller.Send(to, message);
         }
 
+        public void Logout()
+        {
+            _controller.Logout();
+        }
+
         // Interface implementation
 
         public void UpdateConversations(List<Nerdz.Messages.IConversation> conversations)

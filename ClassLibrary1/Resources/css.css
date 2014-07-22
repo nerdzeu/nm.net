@@ -2,19 +2,19 @@
     width: 24%;
     float: left;
     height: 100%;
-    padding-right:3px;
-    position:fixed;
+    padding-right: 3px;
+    position: fixed;
     left: 1px;
-    top: 32px;
+    top: 42px;
 }
 
 #center {
-    position:fixed;
+    position: fixed;
     border-left: 2px solid black;
     width: 74%;
     float: left;
     left: 25%;
-    top: 32px;
+    top: 42px;
     height: 95%;
     padding-left: 3px;
 }
@@ -25,48 +25,49 @@
     height: 100%;
 }
 
-#textarea {
-    width: 60%;
+#textarea, #newtextarea {
+    width: 100%;
     height: 60px;
-    float:left;
+    float: left;
     overflow: visible;
     min-height: 60px;
-    min-width: 60%;
 }
 
-#send {
-    width: 12%;
+.send {
+    width: 11%;
     height: 65px;
     float: left;
-    margin-left: 1px;
-    margin-right: 1px;
-    text-align:center;
-    padding: 0px;
+    margin-left: 2%;
+    text-align: center;
+    padding: 0;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 #form {
-    padding:1px;
+    padding: 1px;
     display: none;
     position: fixed;
     bottom: 2px;
-    height: 70px;
-    margin-top: 15px;
+    height: 68px;
+    margin-top: 20px;
 }
 
 #conversation {
-    padding:2px;
+    padding: 2px;
     overflow: scroll;
-    height:100%;
-    overflow-x:hidden;
-    overflow-y:scroll;
-    height: 80%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 75%;
+    background-color: #fff;
 }
 
 ul, ol {
     list-style-type: none;
-    list-style-position:inside;
-    margin:0;
-    padding:0;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
 }
 
 li {
@@ -79,22 +80,29 @@ li {
 
 .messageRight, .messageLeft {
     display: block;
-    width:95%;
+    width: 95%;
 }
 
 .clickable {
     cursor: pointer;
 }
 
+.selected {
+    background-color: #fff;
+    font-weight: bold;
+}
+
 .date {
-    float:right;
-    margin-right:3px;
+    float: right;
+    margin-right: 3px;
     display: inline;
     font-weight: lighter;
+    font-style: italic;
+    color: #747070;
 }
 
 .username {
-    float:left;
+    float: left;
     font-weight: bold;
 }
 
@@ -105,20 +113,47 @@ body {
 html, body {
     overflow: hidden;
     height: 100%;
+    font-family: Calibri;
 }
 
+.small {
+    font-size: small;
+}
+
+.convli {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+    .convli:hover {
+        background-color: #bfbfbf;
+    }
+
 #header {
-    position:fixed;
-    top: 2px;
-    height: 30px;
-    background-color: white;
+    background-color: #afafaf;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 40px;
     color: black;
     font-weight: bolder;
     overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    font-size: x-large;
 }
 
-#header div {
-    border: 1px solid #000;
-    margin-right: 15px;
-    margin-top:3px;
+    #header div {
+        height: 100%;
+    }
+
+#logout, #newConv {
+    margin-left: 3px;
+    margin-right: 0px;
 }
+
+    #logout:hover, #newConv:hover {
+        background-color: #dce371;
+    }

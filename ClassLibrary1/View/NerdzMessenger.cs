@@ -1,6 +1,4 @@
-﻿#define debug
-
-using Nerdz.Messenger.Controller;
+﻿using Nerdz.Messenger.Controller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,6 +61,7 @@ namespace Nerdz.Messenger.View
                     _browser.WebBrowserShortcutsEnabled = false;
                     _browser.ObjectForScripting = this;
                     _browser.DocumentText = Properties.Resources.app;
+                    _browser.Document.Encoding = "UTF-8";
                     _browser.DocumentCompleted += WebBrowserCompleted;
                 }
             }
