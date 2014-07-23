@@ -11,7 +11,7 @@ namespace Tests.ApiWrapper {
 
         [TestMethod]
         public void TestNewMessenger() {
-            ApiWrapper.messenger = Nerdz.Factory.newMessenger("admin", "adminadmin");
+            ApiWrapper.messenger = Nerdz.Factory.NewMessenger("admin", "adminadmin");
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace Tests.ApiWrapper {
         [TestMethod]
         [ExpectedException(typeof(LoginException))]
         public void TestFailedLogin() {
-            Nerdz.Factory.newMessenger("idonotexist", "invalid");
+            Nerdz.Factory.NewMessenger("idonotexist", "invalid");
         }
     }
 }

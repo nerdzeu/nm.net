@@ -37,7 +37,7 @@ namespace Nerdz.Messenger.Controller
 
             _view = view;
             _view.Controller = this;
-            _messenger = Nerdz.Factory.newMessenger(credentials.Username, credentials.Password);
+            _messenger = Nerdz.Factory.NewMessenger(credentials.Username, credentials.Password);
             _conversations = _messenger.Conversations();
         }
 

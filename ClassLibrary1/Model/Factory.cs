@@ -12,7 +12,7 @@ namespace Nerdz
     {
         public static readonly string SERVER_URL = eu.nerdz.api.impl.reverse.AbstractReverseApplication.NERDZ_DOMAIN_NAME;
 
-        public static IMessenger newMessenger(string uName, string pass)
+        public static IMessenger NewMessenger(string uName, string pass)
         {
             return new FastReverseMessenger(uName, pass);
         }
